@@ -95,7 +95,7 @@ func onInitialize() {
 	default:
 		logger.Fatal("unsupported metrics backend " + metricsBackend)
 	}
-	if config.MySQLGetDelay != fixDBConnDelay {
+	if fixDBConnDelay != 300*time.Millisecond {
 		logger.Info("fix: overriding MySQL query delay", zap.Duration("old", config.MySQLGetDelay), zap.Duration("new", fixDBConnDelay))
 		config.MySQLGetDelay = fixDBConnDelay
 	}
@@ -103,7 +103,7 @@ func onInitialize() {
 		logger.Info("fix: disabling db connection mutex")
 		config.MySQLMutexDisabled = true
 	}
-	if config.RouteWorkerPoolSize != fixRouteWorkerPoolSize {
+	if fixRouteWorkerPoolSize != 3 {
 		logger.Info("fix: overriding route worker pool size", zap.Int("old", config.RouteWorkerPoolSize), zap.Int("new", fixRouteWorkerPoolSize))
 		config.RouteWorkerPoolSize = fixRouteWorkerPoolSize
 	}
